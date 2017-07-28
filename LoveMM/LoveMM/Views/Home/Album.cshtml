@@ -1,0 +1,69 @@
+﻿@using LoveMM.Models;
+@using LoveMM.Extentions.MVC;
+
+@model PagingBase<Picture>
+@{
+    Layout = "~/Views/Shared/_HomePartial.cshtml";
+    Album album = ViewBag.Album;
+    ViewBag.BaseThumbnailPath = "/Pictures/Channels/" + album.ChannelId + "/" + album.Id + "/";
+    ViewBag.Title = album.AlbumName;
+}
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    $("img").lazyload();
+</script>
+
+@{
+    Html.RenderAction("_HomeHeadNav", new { channelId = album.ChannelId });
+}
+<div class="w1000 ad">
+</div>
+<div class="w1280">
+    <div class="position"><a href='/'>首页</a> > <a href="/Home/Channel/@album.ChannelId">@album.Channel.ChannelName</a> >  @album.AlbumName（@Model.PageIndex） </div>
+
+    <div class="clear"></div>
+    <div id="content" style="margin:10px 0;" class="in_banner">
+        <div class="big-pic">
+            <div class="big_img">
+                @if (Model != null && Model.PagingData != null)
+                {
+                    foreach (Picture pic in Model.PagingData)
+                    {
+                        <p align="center"><img src="@(ViewBag.BaseThumbnailPath+pic.PicName)" /></p><br />
+                    }
+                }
+            </div>
+            @Html.PagingButton(Model.PageIndex, Model.PageSize, Model.TotalCount);
+        </div>
+        <div class="clear"></div>
+
+        <div class="w1000 ad">
+            @*<script language="javascript" type="text/javascript" src="/js/bot2.js"></script>*@
+        </div>
+        <div class="fenxianga">
+            @if (ViewBag.PreviousAlbum != null)
+            {
+                Album preAlbum = ViewBag.PreviousAlbum;
+                <span>上一组：<a href="/Home/Album/@preAlbum.Id">@preAlbum.AlbumName</a> &#160;&#160;&#160;</span>
+            }
+            @if (ViewBag.NextAlbum != null)
+            {
+                Album nextAlbum = ViewBag.NextAlbum;
+                <span>下一组：<a href="/Home/Album/@nextAlbum.Id">@nextAlbum.AlbumName</a></span>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="w1000 ad"></div>
+@{
+    Html.RenderAction("_RandomRecommedAlbums", new { channelId = album.ChannelId });
+}
+<div class="clear"></div>
+@{
+    Html.RenderAction("_RecommedHotAlbums");
+}
+<div class="w1000 ad"></div>
+

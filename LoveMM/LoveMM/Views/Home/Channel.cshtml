@@ -1,0 +1,54 @@
+﻿@using LoveMM.Models;
+@using LoveMM.Extentions.MVC;
+
+@model PagingBase<Album>
+@{
+    Layout = "~/Views/Shared/_HomePartial.cshtml";
+    ViewBag.BaseThumbnailPath = "/Pictures/Channels/";
+    Channel channel = ViewBag.Channel;
+    ViewBag.Title = channel.ChannelName;
+}
+
+<script type="text/javascript" src="~/Scripts/jquery.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.lazyload.js"></script>
+<script type="text/javascript">
+    $("img").lazyload();
+</script>
+
+@{
+    Html.RenderAction("_HomeHeadNav", new { channelId = channel.Id });
+}
+<div class="clear"></div>
+<div class="w1000 ad"></div>
+<div class="clear"></div>
+<div class="w1000 ad"></div>
+<div class="w1000 box03">
+    <div class="title">@channel.ChannelName</div>
+    <div class="clear"></div>
+    <ul class="product01">
+        @if (Model != null && Model.PagingData != null)
+        {
+            foreach (var album in Model.PagingData)
+            {
+                Picture thumbnail = album.Pictures.FirstOrDefault(t => t.IsThumbnail);
+                if (thumbnail != null)
+                {
+                    <li>
+                        <a href="/Home/Album/@album.Id" class="pic" target="_Blank" alt="@album.AlbumName">
+                            <img src="@(ViewBag.BaseThumbnailPath + album.ChannelId + "/" + album.Id + "/Thumbnail/" + thumbnail.PicName)" width="184" height="274" alt="@album.AlbumName" />
+                            <p>@album.AlbumName</p>
+                        </a>
+                    </li>
+                }
+            }
+        }
+    </ul>
+    <div class="clear"></div>
+    @Html.PagingButton(Model.PageIndex, Model.PageSize, Model.TotalCount)
+</div>
+<div class="clear"></div>
+@{
+    Html.RenderAction("_ChannelRecommedAlbums", new { id = channel.Id });
+}
+<div class="clear"></div>
+<div class="w1000 ad"></div>  

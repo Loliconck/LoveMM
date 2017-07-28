@@ -1,0 +1,19 @@
+﻿@using LoveMM.Models;
+
+@model IEnumerable<Album>
+
+<div class="new_mito">
+    <h3>每日鲜图</h3>
+    <div class="clear"></div>
+    <ul>
+        @if (Model != null)
+        {
+            int i = 1;
+            foreach (Album album in Model)
+            {
+                <li><em>@album.CTime.ToString("MM-dd") </em> <strong class="num01">@i</strong> <a href='/Home/Album/@album.Id' target="view_window" title="@album.AlbumName">@album.AlbumName</a></li>
+                i++;
+            }
+        }
+    </ul>
+</div>

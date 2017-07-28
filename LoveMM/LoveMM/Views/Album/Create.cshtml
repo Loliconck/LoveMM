@@ -1,0 +1,52 @@
+﻿@model LoveMM.Models.Album
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "相册管理-新建相册";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>相册</legend>
+
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.ChannelId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AlbumName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AlbumName)
+            @Html.ValidationMessageFor(model => model.AlbumName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsValid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsValid)
+            @Html.ValidationMessageFor(model => model.IsValid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remark)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Remark, new { rows = 10, cols = 50 })
+            @Html.ValidationMessageFor(model => model.Remark)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回相册列表", "Index", new { id = Model.ChannelId })
+</div>

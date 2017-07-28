@@ -1,0 +1,34 @@
+﻿@using LoveMM.Models;
+@model List<Album>
+@{
+    ViewBag.BaseThumbnailPath = "/Pictures/Channels/";
+}
+
+<div class="w1000 box03">
+    <div class="title"> 推荐美图</div>
+    <div class="clear"></div>
+    <ul class="product01">
+        @if (Model != null)
+        {
+            foreach (Album album in Model)
+            {
+                Picture picture = album.Pictures.SingleOrDefault(t => t.IsThumbnail && t.IsDelete == false);
+                if (picture == null)
+                {
+                    picture = album.Pictures.FirstOrDefault(t => t.IsDelete == false);
+                }
+                if (picture == null)
+                {
+                    continue;
+                }
+                <li>
+                    <a href="/Home/Album/@album.Id" title="@album.AlbumName" target="view_window">
+                        <img src='@(ViewBag.BaseThumbnailPath + album.ChannelId + "/" + album.Id + "/Thumbnail/" + picture.PicName)' border='0' width='184' height='274' alt='@album.AlbumName'>
+                        <p>@album.AlbumName</p>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+<div class="clear"></div>

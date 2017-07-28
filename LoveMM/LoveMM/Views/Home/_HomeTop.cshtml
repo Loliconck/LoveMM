@@ -1,0 +1,48 @@
+﻿@using LoveMM.Models;
+@model List<Album>
+@{
+    ViewBag.BaseThumbnailPath = "/Pictures/Channels/";
+    Channel channel = ViewBag.Channel;
+}
+
+<div class="banner">
+    <div class="img" id="slide-panel">
+        <div>
+            @if (Model != null)
+            {
+                foreach (Album album in Model)
+                {
+                    Picture picture = album.Pictures.SingleOrDefault(t => t.IsThumbnail && t.IsDelete == false);
+                    if (picture == null)
+                    {
+                        picture = album.Pictures.FirstOrDefault(t => t.IsDelete == false);
+                    }
+                    if (picture == null)
+                    {
+                        continue;
+                    }
+                    <span>
+                        <a target="_blank" href="/Home/Album/@album.Id" title="@album.AlbumName">
+                            <p class="text">@album.AlbumName</p>
+                            <img src="@(ViewBag.BaseThumbnailPath + album.ChannelId + "/" + album.Id + "/Thumbnail/" + picture.PicName)" alt="@album.AlbumName" width="745" height="340" />
+                        </a>
+                    </span>
+                }
+            }
+        </div>
+    </div>
+    <div class="b_bnt" id="bn_bnt">
+        @if (Model != null)
+        {
+            for (int i = 0; i < Model.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    <a class="corrent"></a>
+                    continue;
+                }
+                <a></a>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@using LoveMM.Models;
+@model IEnumerable<Channel>
+
+<div class="hd_nav">
+    <div class="w1000">
+        <a href='/' class="@(ViewBag.ChannelId == 0 ? "current" : "")">首页</a>
+        @foreach (Channel channel in Model)
+        {
+            <a href="/Home/Channel/@channel.Id" class="@(ViewBag.ChannelId == channel.Id ? "current" : "")">@channel.ChannelName</a>
+        }
+    </div>
+</div>
+<div class="clear"></div>

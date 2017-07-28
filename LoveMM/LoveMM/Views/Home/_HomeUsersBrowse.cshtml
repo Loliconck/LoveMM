@@ -1,0 +1,26 @@
+﻿@using LoveMM.Models;
+@model IEnumerable<Album>
+@{
+    ViewBag.BaseThumbnailPath = "/Pictures/Channels/";
+}
+
+<div class="w1000 box02">
+    <em>网友浏览过美女:</em>
+    @if (Model != null)
+    {
+        foreach (Album album in Model)
+        {
+            Picture picture = album.Pictures.SingleOrDefault(t => t.IsThumbnail && t.IsDelete == false);
+            if (picture == null)
+            {
+                picture = album.Pictures.FirstOrDefault(t => t.IsDelete == false);
+            }
+            if (picture == null)
+            {
+                continue;
+            }
+            <a href='@(ViewBag.BaseThumbnailPath + album.ChannelId + "/" + album.Id + "/Thumbnail/" + picture.PicName)' title="@album.AlbumName" target="view_window">@album.AlbumName</a>
+        }
+    }
+</div>
+<div class="clear"></div>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<LoveMM.Models.Channel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "频道管理";
+}
+
+<p>
+    @Html.ActionLink("新建频道", "Create")
+</p>
+<p>
+    @Html.ActionLink("返回首页", "Index", "Admin")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChannelName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsValid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HitCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSpecial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThumbnailName)
+        </th>
+        <th width="260">
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDelete)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChannelName)
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsValid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HitCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSpecial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThumbnailName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDelete)
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("相册", "Index", "Album", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
+</table>
+

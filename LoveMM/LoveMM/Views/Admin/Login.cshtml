@@ -1,0 +1,38 @@
+﻿@model LoveMM.Models.LoginModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "管理员登陆";
+}
+
+@Html.ValidationSummary()
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <div>
+        用户名：@Html.TextBoxFor(t => Model.UserName, new { maxlength = "50" })
+    </div>
+    <div>
+        密码：<input type="password" maxlength="15" id="txt_passwd" />
+        <input type="hidden" name="Password" id="Password" value="" />
+    </div>
+    <div>
+        <input type="button" value="登陆" onclick="AdminLogin();" />
+    </div>
+}
+
+<script src="~/Scripts/sha-1.js"></script>
+<script type="text/javascript">
+    function AdminLogin() {
+        if ($.trim($("#UserName").val()) == "") {
+            return;
+        }
+        if ($.trim($("#txt_passwd").val()) == "") {
+            return;
+        }
+        $("#Password").val($.sha1($("#txt_passwd").val()));
+        $("form").submit();
+    }
+</script>
+
+

@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_HomePartial.cshtml";
+    ViewBag.Title = "性感美女写真专家";
+}
+<script type="text/javascript" src="~/Scripts/lovemm/jquery.switchable[all].min.js"></script>
+<script type="text/javascript" src="~/Scripts/lovemm/lovemm_new.js"></script>
+
+@{
+    Html.RenderAction("_HomeHeadNav", new { channelId = 0 });
+}
+<div class="clear"></div>
+<div class="w1000 box01">
+    @{
+        Html.RenderAction("_HomeTop");
+        Html.RenderAction("_HomeLatestAlbums");
+    }
+</div>
+<div class="clear"></div>
+@{
+    Html.RenderAction("_HomeUsersBrowse");
+}
+<div class="w1000 ad"></div>
+@{
+    Html.RenderAction("_HomeRecommedAlbums");
+    Html.RenderAction("_HomeChannels");
+}
+<div class="w1000 ad"></div>

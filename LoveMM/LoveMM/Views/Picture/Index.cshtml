@@ -1,0 +1,118 @@
+﻿@using LoveMM.Models;
+@model IEnumerable<Picture>
+
+@{
+    ViewBag.Title = "相册图片";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string basePhotoPath = "/Pictures/Channels/";
+    Album album = ViewBag.Album;
+}
+
+<h2>@album.AlbumName</h2>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ChannelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlbumId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsThumbnail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th>
+                缩略图
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChannelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlbumId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsThumbnail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelete)
+                </td>
+                <td>
+                    <img src="@(basePhotoPath+item.ChannelId+"/"+item.AlbumId+"/Thumbnail/"+item.PicName)" width="184" height="274" />
+                </td>
+                <td>
+                    @if (item.IsDelete)
+                    {
+                        <a href="javascript:void(0);" onclick="cancelDelete('@item.Id')">恢复</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0);" onclick="deletePhoto('@item.Id')">删除</a>
+                        if (!item.IsThumbnail)
+                        {
+                            <a href="javascript:void(0);" onclick="setCover('@item.Id')">设为封面</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div>
+        @Html.ActionLink("返回相册列表", "Index", "Album", new { id = album.ChannelId }, null)
+    </div>
+
+    <script type="text/javascript">
+        function deletePhoto(id) {
+            $.post("/Picture/Delete", { id: id }, function (json) {
+                if (json.result) {
+                    window.location.reload();
+                }
+                else {
+                    alert("删除图片失败");
+                }
+            })
+        };
+
+        function setCover(id) {
+            $.post("/Picture/SetCover", { id: id }, function (json) {
+                if (json.result) {
+                    window.location.reload();
+                }
+                else {
+                    alert("设置图片为封面失败，请稍后重试");
+                }
+            })
+        };
+
+        function cancelDelete(id) {
+            $.post("/Picture/CancelDelete", { id: id }, function (json) {
+                if (json.result) {
+                    window.location.reload();
+                }
+                else {
+                    alert("取消删除图片失败，请稍后重试");
+                }
+            })
+        };
+    </script>

@@ -1,0 +1,75 @@
+﻿@model LoveMM.Models.Channel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "频道管理-删除频道";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Channel</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ChannelName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ChannelName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsSpecial)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsSpecial)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.OrderNum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.OrderNum)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsValid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsValid)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.HitCount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HitCount)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Remark)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Remark)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.CTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CTime)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsDelete)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsDelete)
+    </div>
+</fieldset>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
